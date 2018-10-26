@@ -66,3 +66,32 @@ for(let column = 0; column < columns; column++)
 	}
 }
 
+click = (event) => {
+	let source = event.target;
+	let id = source.id;
+	let row = Math.floor(id/columns);
+	let column = id % columns;
+
+	if(event.which == 3) {
+		switch(picture[row][column]) {
+			case 'hidden':
+				tile[row][column].src = 'flag.png';
+				remaining--;
+				picture[row][column] = 'flag';
+				break;
+			case 'flag':
+				tile[row][column].src = 'question.png';
+				remaining++;
+				picture[row][column] = 'question';
+				break;
+			case 'question':
+				tile[row][column] = 'hidden.png';
+				picture[row][column] = 'hidden';
+				break;
+		}
+		event.preventDefault()
+	}
+	status.innerHTML = 'Mines remaining: ' + remaining;
+
+	
+}
