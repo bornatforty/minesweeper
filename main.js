@@ -93,5 +93,33 @@ click = (event) => {
 	}
 	status.innerHTML = 'Mines remaining: ' + remaining;
 
-	
+	if(event.which == 1 && picture[row][column] != 'flag') {
+		if(board[row][column] == 'mine') {
+			for(let row = 0; row < rows; row++)
+				for(let column = 0; column < columns; column++) {
+					if(board[row][column] == 'mine') {
+						tile[row][column].src = 'mine.png';
+					}
+					if(board[row][column] != 'mine' && picture[row][column] == 'flag') {
+						tile[row][column].src = 'misplaced.png'
+					}
+				}
+	status.innerHTML = 'Game Over.  Click here to restart'
+		}
+		else if(picture[row][column] == 'hidden') reveal(row, column)
+	}
+
+	if(revealed == rows*columns - mines)
+	status.innerHTML = "You win! Click here to play again!"
+}
+
+reveal = (row, column) => {
+	tile[row][column].src = board[row][column] + '.png'
+	if(board[row][column] != 'mine' && picture[row][column] == 'hidden')
+		revealed++
+		picture[row][column] = board[row][column]
+
+	if(board[row][column] == 0) {
+		
+	}
 }
